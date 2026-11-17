@@ -9,8 +9,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #0c060e;
-      --card-bg: rgba(255, 255, 255, 0.045);
+      --bg-dark: #09040b;
+      --card-bg: rgba(255, 255, 255, 0.042);
       --card-border: rgba(255, 182, 217, 0.22);
       --pink-primary: #ff7eb6;
       --pink-soft: #ffc2df;
@@ -39,50 +39,97 @@
     }
 
     /* =========================================
+       INTERACTIVE STARDUST CANVAS & CURSOR AURA
+       ========================================= */
+    #stardustCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .cursor-aura {
+      position: fixed;
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 111, 177, 0.16) 0%, rgba(192, 132, 252, 0.07) 45%, transparent 70%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: -1;
+      transition: opacity 0.3s ease;
+    }
+
+    @media (hover: none) {
+      .cursor-aura { display: none; }
+    }
+
+    /* =========================================
        CINEMATIC WELCOME INTRO OVERLAY
        ========================================= */
     .welcome-overlay {
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: radial-gradient(circle at center, #1d0d22 0%, #09040b 100%);
+      background: radial-gradient(circle at center, #1e0c24 0%, #070309 100%);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
       padding: 2rem;
-      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-                  transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
-                  visibility 0.85s;
+      transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+                  visibility 0.9s;
     }
 
     .welcome-overlay.hide {
       opacity: 0;
-      transform: scale(1.06);
+      transform: scale(1.07);
       visibility: hidden;
       pointer-events: none;
     }
 
+    .welcome-crest {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 182, 217, 0.45);
+      background: linear-gradient(135deg, rgba(255, 111, 177, 0.2), rgba(192, 132, 252, 0.2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--pink-soft);
+      box-shadow: 0 0 30px rgba(255, 111, 177, 0.3);
+      margin-bottom: 1.1rem;
+      opacity: 0;
+      animation: introRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+    }
+
     .welcome-badge {
-      font-size: 0.78rem;
-      letter-spacing: 3px;
+      font-size: 0.76rem;
+      letter-spacing: 3.5px;
       text-transform: uppercase;
       color: var(--pink-primary);
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.65rem;
       opacity: 0;
-      animation: introRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+      animation: introRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards;
     }
 
     .welcome-title {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.4rem, 7vw, 4.4rem);
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
       font-weight: 700;
       background: linear-gradient(135deg, #ffffff 10%, #ff9ec9 55%, #c084fc 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       opacity: 0;
-      animation: introRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+      animation: introRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.38s forwards;
     }
 
     .welcome-sub {
@@ -94,12 +141,12 @@
     }
 
     .welcome-bar-wrap {
-      width: 210px;
+      width: 220px;
       height: 3px;
       background: rgba(255, 255, 255, 0.12);
       border-radius: 999px;
       overflow: hidden;
-      margin-top: 1.7rem;
+      margin-top: 1.75rem;
       opacity: 0;
       animation: introRise 0.6s ease 0.65s forwards;
     }
@@ -108,7 +155,7 @@
       width: 0%;
       height: 100%;
       background: linear-gradient(90deg, #ff6fb1, #c084fc);
-      box-shadow: 0 0 12px #ff6fb1;
+      box-shadow: 0 0 14px #ff6fb1;
       animation: loadProgress 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.7s forwards;
     }
 
@@ -117,7 +164,7 @@
       background: transparent;
       border: 1px solid rgba(255, 182, 217, 0.3);
       color: var(--text-muted);
-      padding: 6px 16px;
+      padding: 6px 18px;
       border-radius: 999px;
       font-size: 0.78rem;
       cursor: pointer;
@@ -129,10 +176,11 @@
     .skip-intro:hover {
       color: #fff;
       border-color: var(--pink-primary);
+      background: rgba(255, 126, 182, 0.12);
     }
 
     @keyframes introRise {
-      from { opacity: 0; transform: translateY(20px) scale(0.96); filter: blur(6px); }
+      from { opacity: 0; transform: translateY(22px) scale(0.95); filter: blur(8px); }
       to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
     }
 
@@ -142,37 +190,38 @@
     }
 
     /* =========================================
-       AMBIENT GLOW & MOTION EFFECTS
+       AMBIENT GLOW & MICRO-INTERACTIONS
        ========================================= */
     .bg-glow {
       position: fixed;
-      width: 480px;
-      height: 480px;
+      width: 500px;
+      height: 500px;
       border-radius: 50%;
-      filter: blur(130px);
-      z-index: -1;
-      opacity: 0.45;
+      filter: blur(140px);
+      z-index: -3;
+      opacity: 0.42;
       pointer-events: none;
-      animation: floatGlow 10s ease-in-out infinite alternate;
+      animation: floatGlow 11s ease-in-out infinite alternate;
     }
-    .glow-1 { top: -120px; left: -120px; background: #ff5ca8; }
-    .glow-2 { bottom: -140px; right: -100px; background: #9333ea; animation-delay: -5s; }
+    .glow-1 { top: -130px; left: -130px; background: #ff5ca8; }
+    .glow-2 { bottom: -150px; right: -110px; background: #9333ea; animation-delay: -5.5s; }
 
     @keyframes floatGlow {
       0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(35px, 30px) scale(1.1); }
+      100% { transform: translate(40px, 35px) scale(1.12); }
     }
 
     @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(26px) scale(0.96); }
+      from { opacity: 0; transform: translateY(28px) scale(0.96); }
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
+    /* Click Ripple & Floating Sparkles */
     .ripple-wave {
       position: absolute;
       border-radius: 50%;
       transform: scale(0);
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(255, 126, 182, 0.25) 70%, transparent 100%);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 126, 182, 0.28) 70%, transparent 100%);
       animation: rippleAnim 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
       pointer-events: none;
     }
@@ -184,16 +233,59 @@
       }
     }
 
+    .click-sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 9998;
+      color: var(--pink-soft);
+      font-size: 14px;
+      text-shadow: 0 0 8px var(--pink-primary);
+      animation: sparkleBurst 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    @keyframes sparkleBurst {
+      0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.5) rotate(0deg);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1.25) rotate(140deg);
+      }
+    }
+
+    /* Scroll Reveal Utility */
+    .reveal-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .reveal-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .container {
       max-width: 1040px;
       margin: 0 auto;
-      padding: 3rem 1.25rem 4.5rem;
+      padding: 3.2rem 1.25rem 4.5rem;
     }
 
     /* Hero Header */
     header {
       text-align: center;
-      margin-bottom: 3.5rem;
+      margin-bottom: 3.6rem;
+    }
+
+    .status-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
     }
 
     .status-pill {
@@ -205,10 +297,23 @@
       color: var(--pink-soft);
       padding: 6px 18px;
       border-radius: 999px;
-      font-size: 0.82rem;
+      font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 0.8px;
-      margin-bottom: 1.1rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .slot-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(192, 132, 252, 0.12);
+      border: 1px solid rgba(192, 132, 252, 0.4);
+      color: #e9d5ff;
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
       backdrop-filter: blur(10px);
     }
 
@@ -232,22 +337,30 @@
       50% { opacity: 0.45; transform: scale(1.35); }
     }
 
+    /* Metallic Shimmer Title */
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.6rem, 6vw, 4.1rem);
+      font-size: clamp(2.7rem, 6.2vw, 4.3rem);
       font-weight: 700;
       letter-spacing: -0.5px;
-      background: linear-gradient(135deg, #ffffff 15%, #ff9ec9 55%, #d8b4fe 100%);
+      background: linear-gradient(120deg, #ffffff 10%, #ff9ec9 35%, #ffffff 50%, #d8b4fe 75%, #ffffff 95%);
+      background-size: 220% auto;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      animation: titleShimmer 6s linear infinite;
       margin-bottom: 0.6rem;
+    }
+
+    @keyframes titleShimmer {
+      0% { background-position: 0% center; }
+      100% { background-position: 220% center; }
     }
 
     .subtitle {
       color: var(--text-muted);
       max-width: 560px;
-      margin: 0 auto 1.75rem;
-      font-size: 1.05rem;
+      margin: 0 auto 1.85rem;
+      font-size: 1.06rem;
       font-weight: 300;
     }
 
@@ -281,12 +394,12 @@
     .btn-primary {
       background: linear-gradient(135deg, #ff6fb1, #c084fc);
       color: #140715;
-      box-shadow: 0 8px 24px rgba(255, 111, 177, 0.32);
+      box-shadow: 0 8px 24px rgba(255, 111, 177, 0.34);
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 12px 30px rgba(255, 111, 177, 0.52);
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 14px 32px rgba(255, 111, 177, 0.55);
     }
 
     .btn-secondary {
@@ -297,7 +410,7 @@
     }
 
     .btn-secondary:hover {
-      transform: translateY(-3px) scale(1.02);
+      transform: translateY(-3px) scale(1.03);
       border-color: var(--pink-primary);
       background: rgba(255, 126, 182, 0.12);
     }
@@ -305,9 +418,9 @@
     /* Section Headings */
     .section-title {
       font-family: 'Playfair Display', serif;
-      font-size: 2rem;
+      font-size: 2.05rem;
       text-align: center;
-      margin: 3.5rem 0 0.4rem;
+      margin: 3.6rem 0 0.4rem;
       color: var(--pink-soft);
     }
 
@@ -315,7 +428,7 @@
       text-align: center;
       color: var(--text-muted);
       font-size: 0.95rem;
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.7rem;
     }
 
     /* Interactive Category Selector Bar */
@@ -364,7 +477,7 @@
       color: #140715;
       font-weight: 700;
       border-color: transparent;
-      box-shadow: 0 8px 24px rgba(255, 111, 177, 0.4);
+      box-shadow: 0 8px 26px rgba(255, 111, 177, 0.42);
       transform: translateY(-2px);
     }
 
@@ -381,7 +494,7 @@
       position: relative;
       overflow: hidden;
       text-align: center;
-      padding: 3.4rem 1.75rem;
+      padding: 3.5rem 1.75rem;
       border-radius: 26px;
       background: linear-gradient(145deg, rgba(255, 126, 182, 0.08), rgba(192, 132, 252, 0.06), rgba(18, 9, 22, 0.85));
       border: 1.5px solid rgba(255, 126, 182, 0.45);
@@ -394,7 +507,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(110deg, transparent 25%, rgba(255, 194, 223, 0.14) 50%, transparent 75%);
+      background: linear-gradient(110deg, transparent 25%, rgba(255, 194, 223, 0.15) 50%, transparent 75%);
       transform: translateX(-100%);
       animation: promptSweep 4.5s ease-in-out infinite;
       pointer-events: none;
@@ -418,12 +531,12 @@
 
     @keyframes floatIcon {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-6px) rotate(6deg); }
+      50% { transform: translateY(-7px) rotate(8deg); }
     }
 
     .prompt-icon {
-      width: 52px;
-      height: 52px;
+      width: 54px;
+      height: 54px;
       margin: 0 auto 0.95rem;
       border-radius: 16px;
       background: linear-gradient(135deg, rgba(255, 111, 177, 0.25), rgba(192, 132, 252, 0.25));
@@ -440,7 +553,7 @@
     .select-prompt .prompt-title {
       display: block;
       font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       font-weight: 700;
       background: linear-gradient(135deg, #ffffff 20%, #ffc2df 70%, #d8b4fe 100%);
       -webkit-background-clip: text;
@@ -451,7 +564,7 @@
     .select-prompt p {
       color: var(--text-muted);
       font-size: 0.95rem;
-      max-width: 420px;
+      max-width: 430px;
       margin: 0 auto;
     }
 
@@ -483,7 +596,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
+      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.2) 50%, transparent 70%);
       transform: translateX(-100%);
       transition: transform 0.65s ease;
       pointer-events: none;
@@ -495,7 +608,7 @@
 
     .art-card:hover {
       border-color: var(--pink-primary);
-      box-shadow: 0 16px 36px rgba(255, 111, 177, 0.26);
+      box-shadow: 0 16px 36px rgba(255, 111, 177, 0.28);
     }
 
     .art-card:active {
@@ -520,7 +633,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(12, 6, 14, 0.72);
+      background: rgba(12, 6, 14, 0.76);
     }
 
     .art-title {
@@ -562,13 +675,13 @@
     .price-card:hover {
       transform: translateY(-6px);
       border-color: var(--pink-primary);
-      box-shadow: 0 14px 32px rgba(255, 111, 177, 0.2);
+      box-shadow: 0 14px 32px rgba(255, 111, 177, 0.22);
     }
 
     .price-card.featured {
       border: 1.5px solid var(--pink-primary);
       background: linear-gradient(180deg, rgba(255, 126, 182, 0.12), rgba(255, 255, 255, 0.03));
-      box-shadow: 0 12px 32px rgba(255, 111, 177, 0.15);
+      box-shadow: 0 12px 32px rgba(255, 111, 177, 0.16);
     }
 
     .badge-popular {
@@ -604,7 +717,6 @@
       margin-top: 2px;
     }
 
-    /* Rate Rows Inside Each Pricelist Card */
     .rate-list {
       list-style: none;
       margin-bottom: 1.6rem;
@@ -623,6 +735,13 @@
       padding: 0.6rem 0.9rem;
       border-radius: 12px;
       font-size: 0.91rem;
+      transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    .rate-item:hover {
+      background: rgba(255, 126, 182, 0.08);
+      border-color: rgba(255, 126, 182, 0.35);
+      transform: translateX(4px);
     }
 
     .rate-label {
@@ -722,8 +841,13 @@
   </style>
 </head>
 <body>
+  <!-- Interactive Stardust Background & Cursor Aura -->
+  <canvas id="stardustCanvas"></canvas>
+  <div class="cursor-aura" id="cursorAura"></div>
+
   <!-- Welcoming Intro Overlay -->
   <div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-crest">TH</div>
     <div class="welcome-badge">✦ Creative Design Studio ✦</div>
     <div class="welcome-title">Tres Hoshiro</div>
     <div class="welcome-sub">Cover Edits, Templates & Custom Artwork</div>
@@ -738,20 +862,23 @@
 
   <div class="container">
     <header>
-      <div class="status-pill">
-        <span class="status-dot" id="statusDot"></span>
-        <span id="statusText">COMMISSIONS OPEN</span>
+      <div class="status-row">
+        <div class="status-pill">
+          <span class="status-dot" id="statusDot"></span>
+          <span id="statusText">COMMISSIONS OPEN</span>
+        </div>
+        <div class="slot-pill" id="slotText">✦ 3 of 5 Slots Available</div>
       </div>
       <h1 id="artistName">Tres Hoshiro</h1>
       <p class="subtitle" id="artistBio">Custom Playlist Covers, Music Artwork & Aesthetic Concept Edits ✨</p>
       <div class="cta-row" id="socialButtons"></div>
     </header>
 
-    <h2 class="section-title">Sample Works</h2>
-    <p class="section-desc">Select a category below to explore sample edits</p>
+    <h2 class="section-title reveal-on-scroll">Sample Works</h2>
+    <p class="section-desc reveal-on-scroll">Select a category below to explore sample edits</p>
 
-    <div class="category-bar" id="categoryBar"></div>
-    <div id="galleryContainer">
+    <div class="category-bar reveal-on-scroll" id="categoryBar"></div>
+    <div id="galleryContainer" class="reveal-on-scroll">
       <div class="select-prompt">
         <div class="prompt-icon">✦</div>
         <span class="prompt-title">Explore the Portfolio</span>
@@ -759,11 +886,11 @@
       </div>
     </div>
 
-    <h2 class="section-title" id="rates">Commission Pricelist</h2>
-    <p class="section-desc">Affordable rates • Final price depends on style & complexity</p>
+    <h2 class="section-title reveal-on-scroll" id="rates">Commission Pricelist</h2>
+    <p class="section-desc reveal-on-scroll">Affordable rates • Final price depends on style & complexity</p>
     <div class="pricing-grid" id="pricingGrid"></div>
 
-    <div class="info-box">
+    <div class="info-box reveal-on-scroll">
       <h3>Terms of Service & How to Order</h3>
       <ul id="tosList"></ul>
     </div>
@@ -783,6 +910,7 @@
     // =========================================================================
     const PORTFOLIO_DATA = {
       isOpen: true,
+      slotBadge: "✦ 3 of 5 Slots Available", // Puwede mong i-edit anytime (hal. "5 of 5 Slots Open")
       artistName: "Tres Hoshiro",
       artistBio: "Custom Playlist Covers, Music Artwork & Aesthetic Concept Edits ✨",
       footerText: "© 2026 Tres Hoshiro • Payment via GCash",
@@ -792,7 +920,7 @@
 
       socials: [
         { label: "Message via Facebook", url: "https://www.facebook.com/profile.php?id=100007757027751", primary: true },
-        { label: "Message via Instagram", url: "https://www.instagram.com/stfzi?cplk=MWY4YWpycXc4NWhyaA==", primary: false },
+        { label: "Message via Instagram", url: "https://www.instagram.com/duh.its_langit?mdxt=anJsb2xrYzRsejNy", primary: false },
         { label: "View Pricelist", url: "#rates", primary: false }
       ],
 
@@ -867,7 +995,94 @@
     };
 
     // =========================================================================
-    // WELCOME INTRO & MOTION ENGINE
+    // INTERACTIVE STARDUST CANVAS ENGINE
+    // =========================================================================
+    const canvas = document.getElementById("stardustCanvas");
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let pointer = { x: -999, y: -999 };
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    window.addEventListener("mousemove", (e) => {
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      const aura = document.getElementById("cursorAura");
+      if (aura) {
+        aura.style.left = `${e.clientX}px`;
+        aura.style.top = `${e.clientY}px`;
+      }
+    });
+
+    for (let i = 0; i < 48; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.9 + 0.6,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: -Math.random() * 0.4 - 0.12,
+        alpha: Math.random() * 0.6 + 0.2,
+        color: Math.random() > 0.45 ? "255, 158, 201" : "216, 180, 254"
+      });
+    }
+
+    function animateStardust() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.y < -10) { p.y = canvas.height + 10; p.x = Math.random() * canvas.width; }
+        if (p.x < -10) p.x = canvas.width + 10;
+        if (p.x > canvas.width + 10) p.x = -10;
+
+        // Gentle magnetic attraction near pointer
+        const dx = pointer.x - p.x;
+        const dy = pointer.y - p.y;
+        const dist = Math.hypot(dx, dy);
+        if (dist < 130) {
+          p.x += dx * 0.008;
+          p.y += dy * 0.008;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.color}, ${p.alpha})`;
+        ctx.shadowBlur = 8;
+        ctx.shadowColor = `rgba(${p.color}, 0.8)`;
+        ctx.fill();
+      });
+      requestAnimationFrame(animateStardust);
+    }
+    animateStardust();
+
+    // =========================================================================
+    // SPARKLE BURST ON CLICK ANYWHERE
+    // =========================================================================
+    document.addEventListener("click", (e) => {
+      const symbols = ["✦", "✧", "⋆"];
+      for (let i = 0; i < 5; i++) {
+        const spark = document.createElement("span");
+        spark.className = "click-sparkle";
+        spark.textContent = symbols[i % symbols.length];
+        const angle = (Math.PI * 2 * i) / 5 + Math.random() * 0.5;
+        const distance = 26 + Math.random() * 24;
+        spark.style.left = `${e.clientX}px`;
+        spark.style.top = `${e.clientY}px`;
+        spark.style.setProperty("--tx", `${Math.cos(angle) * distance}px`);
+        spark.style.setProperty("--ty", `${Math.sin(angle) * distance}px`);
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 750);
+      }
+    });
+
+    // =========================================================================
+    // WELCOME INTRO, RIPPLE & SCROLL REVEAL
     // =========================================================================
     function closeWelcome() {
       const overlay = document.getElementById("welcomeOverlay");
@@ -899,16 +1114,18 @@
         const rect = card.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
-        card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-6px) scale(1.02)`;
+        card.style.transform = `perspective(800px) rotateY(${x * 11}deg) rotateX(${-y * 11}deg) translateY(-6px) scale(1.02)`;
       });
       card.addEventListener("mouseleave", () => {
         card.style.transform = "";
       });
     }
 
+    // Populate Page Data
     document.getElementById("artistName").textContent = PORTFOLIO_DATA.artistName;
     document.getElementById("artistBio").textContent = PORTFOLIO_DATA.artistBio;
     document.getElementById("footerText").textContent = PORTFOLIO_DATA.footerText;
+    document.getElementById("slotText").textContent = PORTFOLIO_DATA.slotBadge;
 
     const statusDot = document.getElementById("statusDot");
     const statusText = document.getElementById("statusText");
@@ -979,9 +1196,10 @@
     });
 
     const pricingGrid = document.getElementById("pricingGrid");
-    PORTFOLIO_DATA.pricelist.forEach(group => {
+    PORTFOLIO_DATA.pricelist.forEach((group, idx) => {
       const card = document.createElement("div");
-      card.className = `price-card ${group.featured ? "featured" : ""}`;
+      card.className = `price-card reveal-on-scroll ${group.featured ? "featured" : ""}`;
+      card.style.transitionDelay = `${idx * 0.1}s`;
       card.innerHTML = `
         ${group.badge ? `<span class="badge-popular">${group.badge}</span>` : ""}
         <div>
@@ -1020,6 +1238,18 @@
       li.textContent = rule;
       tosList.appendChild(li);
     });
+
+    // Intersection Observer for Smooth Scroll Reveals
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(".reveal-on-scroll").forEach(el => observer.observe(el));
   </script>
 </body>
 </html>
