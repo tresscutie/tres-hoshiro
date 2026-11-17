@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cover Edits & Commission Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #130b14;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 182, 217, 0.22);
+      --pink-primary: #ff7eb6;
+      --pink-soft: #ffc2df;
+      --purple-accent: #c084fc;
+      --text-main: #fff5f9;
+      --text-muted: #d6b8c7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Ambient Girly Glow Background */
+    .bg-glow {
+      position: fixed;
+      width: 420px;
+      height: 420px;
+      border-radius: 50%;
+      filter: blur(110px);
+      z-index: -1;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+    .glow-1 { top: -100px; left: -100px; background: #ff5ca8; }
+    .glow-2 { bottom: -120px; right: -80px; background: #9333ea; }
+
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* Header / Hero */
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 126, 182, 0.14);
+      border: 1px solid var(--pink-primary);
+      color: var(--pink-soft);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 1rem;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 8px #4ade80;
+    }
+
+    .status-dot.closed {
+      background: #f87171;
+      box-shadow: 0 0 8px #f87171;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      background: linear-gradient(135deg, #fff 20%, #ff9ec9 60%, #d8b4fe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .subtitle {
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 1.5rem;
+      font-size: 1.05rem;
+    }
+
+    .cta-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 11px 24px;
+      border-radius: 999px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #ff6fb1, #c084fc);
+      color: #160917;
+      box-shadow: 0 6px 20px rgba(255, 111, 177, 0.35);
+    }
+
+    .btn-secondary {
+      background: var(--card-bg);
+      color: var(--text-main);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(10px);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Section Headings */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.85rem;
+      text-align: center;
+      margin: 3rem 0 0.4rem;
+      color: var(--pink-soft);
+    }
+
+    .section-desc {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.8rem;
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .art-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      overflow: hidden;
+      backdrop-filter: blur(12px);
+      transition: transform 0.25s ease, border-color 0.25s ease;
+      cursor: pointer;
+    }
+
+    .art-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--pink-primary);
+    }
+
+    .art-card img {
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      display: block;
+      background: #1f1221;
+    }
+
+    .art-info {
+      padding: 0.95rem 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .art-title {
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
+
+    .art-tag {
+      font-size: 0.75rem;
+      background: rgba(255, 126, 182, 0.16);
+      color: var(--pink-soft);
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    /* Pricing Cards */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .price-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 1.6rem;
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .price-card.featured {
+      border: 1.5px solid var(--pink-primary);
+      background: linear-gradient(180deg, rgba(255, 126, 182, 0.12), rgba(255, 255, 255, 0.04));
+    }
+
+    .badge-popular {
+      position: absolute;
+      top: -12px;
+      right: 18px;
+      background: linear-gradient(135deg, #ff6fb1, #c084fc);
+      color: #160917;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .tier-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--pink-soft);
+    }
+
+    .tier-price {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0.4rem 0 0.8rem;
+      color: #fff;
+    }
+
+    .tier-features {
+      list-style: none;
+      margin-bottom: 1.4rem;
+      color: var(--text-muted);
+      font-size: 0.92rem;
+    }
+
+    .tier-features li {
+      margin-bottom: 0.45rem;
+      padding-left: 1.2rem;
+      position: relative;
+    }
+
+    .tier-features li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--pink-primary);
+    }
+
+    /* Terms & Payment Box */
+    .info-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 22px;
+      padding: 1.6rem;
+      margin-top: 2.5rem;
+      backdrop-filter: blur(12px);
+    }
+
+    .info-box h3 {
+      color: var(--pink-soft);
+      margin-bottom: 0.8rem;
+      font-size: 1.2rem;
+    }
+
+    .info-box ul {
+      padding-left: 1.2rem;
+      color: var(--text-muted);
+      font-size: 0.93rem;
+    }
+
+    .info-box li {
+      margin-bottom: 0.4rem;
+    }
+
+    /* Lightbox Preview Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 5, 12, 0.88);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal img {
+      max-width: 92vw;
+      max-height: 85vh;
+      border-radius: 16px;
+      border: 1px solid var(--pink-primary);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 3.5rem;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+
+  <div class="container">
+    <header>
+      <div class="status-pill">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="statusText">COMMISSIONS OPEN</span>
+      </div>
+      <h1 id="artistName">Tress Edits Studio</h1>
+      <p class="subtitle" id="artistBio">Custom K-Pop Playlist Covers, Single/Album Art & Aesthetic Graphic Edits.</p>
+      <div class="cta-row" id="socialButtons"></div>
+    </header>
+
+    <h2 class="section-title">Sample Cover Edits</h2>
+    <p class="section-desc">Tap any cover to view full size</p>
+    <div class="gallery-grid" id="galleryGrid"></div>
+
+    <h2 class="section-title" id="rates">Commission Rates</h2>
+    <p class="section-desc">All packages include high-resolution PNG/JPG export</p>
+    <div class="pricing-grid" id="pricingGrid"></div>
+
+    <div class="info-box">
+      <h3>Terms of Service & How to Order</h3>
+      <ul id="tosList"></ul>
+    </div>
+
+    <footer>
+      <p id="footerText">© 2026 Tress Edits Studio • DM to claim a slot</p>
+    </footer>
+  </div>
+
+  <div class="modal" id="imgModal" onclick="this.classList.remove('open')">
+    <img id="modalImg" src="" alt="Full Preview" />
+  </div>
+
+  <script>
+    // =========================================================================
+    // MADALING I-EDIT DITO: Palitan lang ang text, image filenames, at presyo!
+    // =========================================================================
+    const PORTFOLIO_DATA = {
+      isOpen: true, // Gawing false kung closed na ang commissions
+      artistName: "Tress Edits Studio",
+      artistBio: "Custom Playlist Covers, Music Artwork & Aesthetic Concept Edits ✨",
+      footerText: "© 2026 Tress Edits Studio • Payment via GCash / Maya",
+
+      // Mga button sa taas (palitan ang url ng links mo)
+      socials: [
+        { label: "Order via Messenger", url: "https://m.me/your-username", primary: true },
+        { label: "Instagram", url: "https://instagram.com/your-username", primary: false },
+        { label: "View Rates", url: "#rates", primary: false }
+      ],
+
+      // Mga Sample Edits mo (ilagay ang image files sa parehong folder ng index.html)
+      gallery: [
+        {
+          title: "The Invasion: Ep. 28",
+          category: "Playlist Cover",
+          image: "cover1.jpg" // Palitan ng filename ng in-upload mong picture
+        },
+        {
+          title: "Velvet Midnight Concept",
+          category: "Album Cover",
+          image: "cover2.jpg"
+        },
+        {
+          title: "Dreamscape Single Art",
+          category: "Music Cover",
+          image: "cover3.jpg"
+        }
+      ],
+
+      // Mga Presyo / Packages
+      packages: [
+        {
+          name: "Basic Cover Edit",
+          price: "₱150",
+          featured: false,
+          features: [
+            "1–2 Subjects / Members",
+            "Custom Typography & Color Grading",
+            "1 Free Minor Revision",
+            "2–3 Days Turnaround"
+          ]
+        },
+        {
+          name: "Full Concept / Group Cover",
+          price: "₱300",
+          featured: true,
+          badge: "Most Popular",
+          features: [
+            "Up to 7 Subjects / Full Group",
+            "Complex Lighting, Glow & Custom FX",
+            "2 Free Revisions",
+            "3–5 Days Turnaround"
+          ]
+        },
+        {
+          name: "Banner + Cover Bundle",
+          price: "₱420",
+          featured: false,
+          features: [
+            "1 Full Concept Cover + Matching Header",
+            "Priority Queue",
+            "3 Free Revisions",
+            "3–4 Days Turnaround"
+          ]
+        }
+      ],
+
+      // Rules & Payment Info
+      terms: [
+        "50% downpayment via GCash before starting; remaining 50% upon final preview before sending the unwatermarked file.",
+        "Please prepare high-quality photos/renders and your preferred concept, color palette, and exact text.",
+        "Rush orders (within 24 hours) have an additional +₱100 rush fee.",
+        "Personal and playlist/streaming use only. Please credit when posting."
+      ]
+    };
+
+    // =========================================================================
+    // AUTO-RENDER ENGINE (Huwag nang galawin)
+    // =========================================================================
+    document.getElementById("artistName").textContent = PORTFOLIO_DATA.artistName;
+    document.getElementById("artistBio").textContent = PORTFOLIO_DATA.artistBio;
+    document.getElementById("footerText").textContent = PORTFOLIO_DATA.footerText;
+
+    const statusDot = document.getElementById("statusDot");
+    const statusText = document.getElementById("statusText");
+    if (!PORTFOLIO_DATA.isOpen) {
+      statusDot.classList.add("closed");
+      statusText.textContent = "COMMISSIONS CLOSED";
+    }
+
+    const socialContainer = document.getElementById("socialButtons");
+    PORTFOLIO_DATA.socials.forEach(s => {
+      const a = document.createElement("a");
+      a.href = s.url;
+      a.textContent = s.label;
+      a.className = `btn ${s.primary ? "btn-primary" : "btn-secondary"}`;
+      if (!s.url.startsWith("#")) a.target = "_blank";
+      socialContainer.appendChild(a);
+    });
+
+    const galleryGrid = document.getElementById("galleryGrid");
+    PORTFOLIO_DATA.gallery.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "art-card";
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.title}" loading="lazy" />
+        <div class="art-info">
+          <span class="art-title">${item.title}</span>
+          <span class="art-tag">${item.category}</span>
+        </div>
+      `;
+      card.onclick = () => {
+        document.getElementById("modalImg").src = item.image;
+        document.getElementById("imgModal").classList.add("open");
+      };
+      galleryGrid.appendChild(card);
+    });
+
+    const pricingGrid = document.getElementById("pricingGrid");
+    PORTFOLIO_DATA.packages.forEach(pkg => {
+      const card = document.createElement("div");
+      card.className = `price-card ${pkg.featured ? "featured" : ""}`;
+      card.innerHTML = `
+        ${pkg.badge ? `<span class="badge-popular">${pkg.badge}</span>` : ""}
+        <div>
+          <div class="tier-name">${pkg.name}</div>
+          <div class="tier-price">${pkg.price}</div>
+          <ul class="tier-features">
+            ${pkg.features.map(f => `<li>${f}</li>`).join("")}
+          </ul>
+        </div>
+        <a href="${PORTFOLIO_DATA.socials[0].url}" target="_blank" class="btn ${pkg.featured ? "btn-primary" : "btn-secondary"}" style="text-align:center;">
+          Book This Package
+        </a>
+      `;
+      pricingGrid.appendChild(card);
+    });
+
+    const tosList = document.getElementById("tosList");
+    PORTFOLIO_DATA.terms.forEach(rule => {
+      const li = document.createElement("li");
+      li.textContent = rule;
+      tosList.appendChild(li);
+    });
+  </script>
+</body>
+</html>
