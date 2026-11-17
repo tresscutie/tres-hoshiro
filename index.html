@@ -34,7 +34,6 @@
       min-height: 100vh;
     }
 
-    /* Ambient Girly Glow Background */
     .bg-glow {
       position: fixed;
       width: 420px;
@@ -54,7 +53,6 @@
       padding: 2.5rem 1.25rem 4rem;
     }
 
-    /* Header / Hero */
     header {
       text-align: center;
       margin-bottom: 3rem;
@@ -120,6 +118,7 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       cursor: pointer;
       border: none;
+      display: inline-block;
     }
 
     .btn-primary {
@@ -139,7 +138,6 @@
       transform: translateY(-2px);
     }
 
-    /* Section Headings */
     .section-title {
       font-family: 'Playfair Display', serif;
       font-size: 1.85rem;
@@ -155,7 +153,6 @@
       margin-bottom: 1.8rem;
     }
 
-    /* Gallery Grid */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -205,7 +202,6 @@
       border-radius: 999px;
     }
 
-    /* Pricing Cards */
     .pricing-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -275,7 +271,12 @@
       color: var(--pink-primary);
     }
 
-    /* Terms & Payment Box */
+    .book-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
     .info-box {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -301,7 +302,6 @@
       margin-bottom: 0.4rem;
     }
 
-    /* Lightbox Preview Modal */
     .modal {
       display: none;
       position: fixed;
@@ -380,10 +380,14 @@
       artistBio: "Custom Playlist Covers, Music Artwork & Aesthetic Concept Edits ✨",
       footerText: "© 2026 Tress Edits Studio • Payment via GCash / Maya",
 
-      // Mga button sa taas (palitan ang url ng links mo)
+      // Mga Direct Links mo para sa Book at Message buttons
+      facebookUrl: "https://www.facebook.com/share/1A264dNA2d/",
+      instagramUrl: "https://www.instagram.com/duh.its_langit?mdxt=anJsb2xrYzRsejNy",
+
+      // Mga button sa taas
       socials: [
-        { label: "Order via Messenger", url: "https://m.me/your-username", primary: true },
-        { label: "Instagram", url: "https://instagram.com/your-username", primary: false },
+        { label: "Message via Facebook", url: "https://www.facebook.com/share/1A264dNA2d/", primary: true },
+        { label: "Message via Instagram", url: "https://www.instagram.com/duh.its_langit?mdxt=anJsb2xrYzRsejNy", primary: false },
         { label: "View Rates", url: "#rates", primary: false }
       ],
 
@@ -392,7 +396,7 @@
         {
           title: "The Invasion: Ep. 28",
           category: "Playlist Cover",
-          image: "cover1.jpg" // Palitan ng filename ng in-upload mong picture
+          image: "cover1.jpg"
         },
         {
           title: "Velvet Midnight Concept",
@@ -473,7 +477,10 @@
       a.href = s.url;
       a.textContent = s.label;
       a.className = `btn ${s.primary ? "btn-primary" : "btn-secondary"}`;
-      if (!s.url.startsWith("#")) a.target = "_blank";
+      if (!s.url.startsWith("#")) {
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+      }
       socialContainer.appendChild(a);
     });
 
@@ -508,9 +515,14 @@
             ${pkg.features.map(f => `<li>${f}</li>`).join("")}
           </ul>
         </div>
-        <a href="${PORTFOLIO_DATA.socials[0].url}" target="_blank" class="btn ${pkg.featured ? "btn-primary" : "btn-secondary"}" style="text-align:center;">
-          Book This Package
-        </a>
+        <div class="book-actions">
+          <a href="${PORTFOLIO_DATA.facebookUrl}" target="_blank" rel="noopener noreferrer" class="btn ${pkg.featured ? "btn-primary" : "btn-secondary"}" style="text-align:center;">
+            Book via Facebook / Messenger
+          </a>
+          <a href="${PORTFOLIO_DATA.instagramUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="text-align:center; font-size:0.85rem; padding:9px 18px;">
+            Book via Instagram
+          </a>
+        </div>
       `;
       pricingGrid.appendChild(card);
     });
