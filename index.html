@@ -9,9 +9,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #0e0810;
+      --bg-dark: #0c060e;
       --card-bg: rgba(255, 255, 255, 0.045);
-      --card-border: rgba(255, 182, 217, 0.2);
+      --card-border: rgba(255, 182, 217, 0.22);
       --pink-primary: #ff7eb6;
       --pink-soft: #ffc2df;
       --purple-accent: #c084fc;
@@ -38,15 +38,120 @@
       min-height: 100vh;
     }
 
-    /* Ambient Floating Glows */
+    /* =========================================
+       CINEMATIC WELCOME INTRO OVERLAY
+       ========================================= */
+    .welcome-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: radial-gradient(circle at center, #1d0d22 0%, #09040b 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      transition: opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+                  visibility 0.85s;
+    }
+
+    .welcome-overlay.hide {
+      opacity: 0;
+      transform: scale(1.06);
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .welcome-badge {
+      font-size: 0.78rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--pink-primary);
+      margin-bottom: 0.85rem;
+      opacity: 0;
+      animation: introRise 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s forwards;
+    }
+
+    .welcome-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 7vw, 4.4rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff 10%, #ff9ec9 55%, #c084fc 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0;
+      animation: introRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+    }
+
+    .welcome-sub {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-top: 0.45rem;
+      opacity: 0;
+      animation: introRise 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+    }
+
+    .welcome-bar-wrap {
+      width: 210px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 1.7rem;
+      opacity: 0;
+      animation: introRise 0.6s ease 0.65s forwards;
+    }
+
+    .welcome-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #ff6fb1, #c084fc);
+      box-shadow: 0 0 12px #ff6fb1;
+      animation: loadProgress 1.8s cubic-bezier(0.65, 0, 0.35, 1) 0.7s forwards;
+    }
+
+    .skip-intro {
+      margin-top: 1.4rem;
+      background: transparent;
+      border: 1px solid rgba(255, 182, 217, 0.3);
+      color: var(--text-muted);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      opacity: 0;
+      animation: introRise 0.6s ease 0.85s forwards;
+    }
+
+    .skip-intro:hover {
+      color: #fff;
+      border-color: var(--pink-primary);
+    }
+
+    @keyframes introRise {
+      from { opacity: 0; transform: translateY(20px) scale(0.96); filter: blur(6px); }
+      to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+    }
+
+    @keyframes loadProgress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* =========================================
+       AMBIENT GLOW & SPARKLE PARTICLES
+       ========================================= */
     .bg-glow {
       position: fixed;
-      width: 460px;
-      height: 460px;
+      width: 480px;
+      height: 480px;
       border-radius: 50%;
-      filter: blur(125px);
+      filter: blur(130px);
       z-index: -1;
-      opacity: 0.42;
+      opacity: 0.45;
       pointer-events: none;
       animation: floatGlow 10s ease-in-out infinite alternate;
     }
@@ -55,17 +160,28 @@
 
     @keyframes floatGlow {
       0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(30px, 25px) scale(1.08); }
+      100% { transform: translate(35px, 30px) scale(1.1); }
     }
 
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(22px) scale(0.98);
-      }
+      from { opacity: 0; transform: translateY(26px) scale(0.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Click Ripple Wave */
+    .ripple-wave {
+      position: absolute;
+      border-radius: 50%;
+      transform: scale(0);
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.55) 0%, rgba(255, 126, 182, 0.25) 70%, transparent 100%);
+      animation: rippleAnim 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      pointer-events: none;
+    }
+
+    @keyframes rippleAnim {
       to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(3.5);
+        opacity: 0;
       }
     }
 
@@ -79,7 +195,6 @@
     header {
       text-align: center;
       margin-bottom: 3.5rem;
-      animation: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     .status-pill {
@@ -115,12 +230,12 @@
 
     @keyframes pulseDot {
       0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.3); }
+      50% { opacity: 0.45; transform: scale(1.35); }
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-size: clamp(2.6rem, 6vw, 4.1rem);
       font-weight: 700;
       letter-spacing: -0.5px;
       background: linear-gradient(135deg, #ffffff 15%, #ff9ec9 55%, #d8b4fe 100%);
@@ -144,16 +259,25 @@
       flex-wrap: wrap;
     }
 
+    /* Interactive Buttons with Tactile Bounce */
     .btn {
+      position: relative;
+      overflow: hidden;
       text-decoration: none;
       padding: 12px 26px;
       border-radius: 999px;
       font-weight: 600;
       font-size: 0.94rem;
-      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  box-shadow 0.25s ease,
+                  border-color 0.25s ease;
       cursor: pointer;
       border: none;
       display: inline-block;
+    }
+
+    .btn:active {
+      transform: scale(0.94) !important;
     }
 
     .btn-primary {
@@ -163,8 +287,8 @@
     }
 
     .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(255, 111, 177, 0.5);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(255, 111, 177, 0.52);
     }
 
     .btn-secondary {
@@ -175,9 +299,9 @@
     }
 
     .btn-secondary:hover {
-      transform: translateY(-3px);
+      transform: translateY(-3px) scale(1.02);
       border-color: var(--pink-primary);
-      background: rgba(255, 126, 182, 0.1);
+      background: rgba(255, 126, 182, 0.12);
     }
 
     /* Section Headings */
@@ -206,17 +330,22 @@
     }
 
     .cat-btn {
+      position: relative;
+      overflow: hidden;
       background: var(--card-bg);
       color: var(--text-muted);
       border: 1px solid var(--card-border);
-      padding: 10px 22px;
+      padding: 11px 24px;
       border-radius: 999px;
       font-family: 'Outfit', sans-serif;
-      font-size: 0.92rem;
+      font-size: 0.93rem;
       font-weight: 500;
       cursor: pointer;
       backdrop-filter: blur(10px);
-      transition: all 0.25s ease;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+                  background 0.3s ease,
+                  border-color 0.3s ease,
+                  box-shadow 0.3s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -225,7 +354,11 @@
     .cat-btn:hover {
       border-color: var(--pink-primary);
       color: #fff;
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+    }
+
+    .cat-btn:active {
+      transform: scale(0.92);
     }
 
     .cat-btn.active {
@@ -233,7 +366,8 @@
       color: #140715;
       font-weight: 700;
       border-color: transparent;
-      box-shadow: 0 6px 20px rgba(255, 111, 177, 0.35);
+      box-shadow: 0 8px 24px rgba(255, 111, 177, 0.4);
+      transform: translateY(-2px);
     }
 
     .cat-count {
@@ -247,7 +381,7 @@
     /* Prompt Placeholder Before Category Selection */
     .select-prompt {
       text-align: center;
-      padding: 3rem 1.5rem;
+      padding: 3.2rem 1.5rem;
       background: var(--card-bg);
       border: 1px dashed var(--card-border);
       border-radius: 24px;
@@ -258,20 +392,22 @@
 
     .select-prompt span {
       display: block;
-      font-size: 1.15rem;
+      font-size: 1.2rem;
       color: var(--pink-soft);
       font-weight: 600;
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.35rem;
     }
 
-    /* Gallery Grid */
+    /* Gallery Grid + 3D Tilt & Shimmer Sweep */
     .gallery-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: 1.35rem;
+      gap: 1.4rem;
+      perspective: 1000px;
     }
 
     .art-card {
+      position: relative;
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 20px;
@@ -279,14 +415,34 @@
       backdrop-filter: blur(12px);
       cursor: pointer;
       opacity: 0;
-      animation: fadeUp 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                  border-color 0.3s ease,
+                  box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+    }
+
+    .art-card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 30%, rgba(255, 255, 255, 0.18) 50%, transparent 70%);
+      transform: translateX(-100%);
+      transition: transform 0.65s ease;
+      pointer-events: none;
+    }
+
+    .art-card:hover::after {
+      transform: translateX(100%);
     }
 
     .art-card:hover {
-      transform: translateY(-7px) scale(1.01);
       border-color: var(--pink-primary);
-      box-shadow: 0 14px 32px rgba(255, 111, 177, 0.22);
+      box-shadow: 0 16px 36px rgba(255, 111, 177, 0.26);
+    }
+
+    .art-card:active {
+      transform: scale(0.97) !important;
     }
 
     .art-card img {
@@ -295,11 +451,11 @@
       object-fit: cover;
       display: block;
       background: #1a0f1c;
-      transition: transform 0.45s ease;
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .art-card:hover img {
-      transform: scale(1.04);
+      transform: scale(1.05);
     }
 
     .art-info {
@@ -307,7 +463,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(14, 8, 16, 0.65);
+      background: rgba(12, 6, 14, 0.72);
     }
 
     .art-title {
@@ -343,12 +499,13 @@
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      transition: transform 0.3s ease, border-color 0.3s ease;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .price-card:hover {
-      transform: translateY(-5px);
+      transform: translateY(-6px);
       border-color: var(--pink-primary);
+      box-shadow: 0 14px 32px rgba(255, 111, 177, 0.18);
     }
 
     .price-card.featured {
@@ -436,13 +593,13 @@
       margin-bottom: 0.45rem;
     }
 
-    /* Lightbox Modal */
+    /* Lightbox Modal with Spring Zoom */
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(8, 4, 10, 0.9);
-      backdrop-filter: blur(10px);
+      background: rgba(8, 4, 10, 0.92);
+      backdrop-filter: blur(12px);
       z-index: 100;
       align-items: center;
       justify-content: center;
@@ -452,7 +609,7 @@
 
     .modal.open {
       display: flex;
-      animation: fadeUp 0.25s ease both;
+      animation: modalFade 0.25s ease forwards;
     }
 
     .modal img {
@@ -460,7 +617,18 @@
       max-height: 86vh;
       border-radius: 18px;
       border: 1.5px solid var(--pink-primary);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8);
+      animation: springZoom 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    @keyframes modalFade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes springZoom {
+      from { opacity: 0; transform: scale(0.84); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     footer {
@@ -472,6 +640,17 @@
   </style>
 </head>
 <body>
+  <!-- Welcoming Intro Overlay -->
+  <div class="welcome-overlay" id="welcomeOverlay">
+    <div class="welcome-badge">✦ Creative Design Studio ✦</div>
+    <div class="welcome-title">Tres Hoshiro</div>
+    <div class="welcome-sub">Cover Edits, Templates & Custom Artwork</div>
+    <div class="welcome-bar-wrap">
+      <div class="welcome-bar-fill"></div>
+    </div>
+    <button class="skip-intro" onclick="closeWelcome()">Enter Portfolio →</button>
+  </div>
+
   <div class="bg-glow glow-1"></div>
   <div class="bg-glow glow-2"></div>
 
@@ -525,19 +704,17 @@
       artistBio: "Custom Playlist Covers, Music Artwork & Aesthetic Concept Edits ✨",
       footerText: "© 2026 Tres Hoshiro • Payment via GCash / Maya",
 
-      facebookUrl: "https://www.facebook.com/share/1A264dNA2d/",
+      facebookUrl: "https://www.facebook.com/profile.php?id=100007757027751",
       instagramUrl: "https://www.instagram.com/duh.its_langit?mdxt=anJsb2xrYzRsejNy",
 
       socials: [
-        { label: "Message via Facebook", url: "https://www.facebook.com/share/1A264dNA2d/", primary: true },
-        { label: "Message via Instagram", url: "https://www.instagram.com/duh.its_langit?mdxt=anJsb2xrYzRsejNy", primary: false },
+        { label: "Message via Facebook", url: "https://www.facebook.com/profile.php?id=100007757027751", primary: true },
+        { label: "Message via Instagram", url: "https://www.instagram.com/stfzi?cplk=MWY4YWpycXc4NWhyaA==", primary: false },
         { label: "View Rates", url: "#rates", primary: false }
       ],
 
-      // Mga Categories na aktibo ngayon (puwede mong dagdagan kapag may pictures na yung iba)
       categories: ["UDP", "Template", "Poster", "SDP"],
 
-      // Mga Sample Works naka-group per category
       gallery: [
         // --- UDP ---
         { title: "UDP Edit #1", category: "UDP", image: "udp (1).jpg" },
@@ -562,7 +739,6 @@
         { title: "SDP Edit #1", category: "SDP", image: "sdp.jpg" }
       ],
 
-      // Mga Presyo / Packages
       packages: [
         {
           name: "Basic Cover Edit",
@@ -600,7 +776,6 @@
         }
       ],
 
-      // Rules & Payment Info
       terms: [
         "50% downpayment via GCash before starting; remaining 50% upon final preview before sending the unwatermarked file.",
         "Please prepare high-quality photos/renders and your preferred concept, color palette, and exact text.",
@@ -610,8 +785,49 @@
     };
 
     // =========================================================================
-    // AUTO-RENDER ENGINE
+    // WELCOME INTRO & MOTION ENGINE
     // =========================================================================
+    function closeWelcome() {
+      const overlay = document.getElementById("welcomeOverlay");
+      if (overlay && !overlay.classList.contains("hide")) {
+        overlay.classList.add("hide");
+      }
+    }
+
+    // Auto-dismiss welcome screen after 2.5 seconds
+    window.addEventListener("load", () => {
+      setTimeout(closeWelcome, 2500);
+    });
+
+    // Click Ripple Motion Effect on Buttons & Cards
+    function attachRipple(el) {
+      el.addEventListener("click", function (e) {
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const ripple = document.createElement("span");
+        ripple.className = "ripple-wave";
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+        ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+        this.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 650);
+      });
+    }
+
+    // 3D Tilt Motion on Gallery Cards
+    function attach3DTilt(card) {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(800px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg) translateY(-6px) scale(1.02)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        card.style.transform = "";
+      });
+    }
+
+    // Populate Page Data
     document.getElementById("artistName").textContent = PORTFOLIO_DATA.artistName;
     document.getElementById("artistBio").textContent = PORTFOLIO_DATA.artistBio;
     document.getElementById("footerText").textContent = PORTFOLIO_DATA.footerText;
@@ -633,10 +849,10 @@
         a.target = "_blank";
         a.rel = "noopener noreferrer";
       }
+      attachRipple(a);
       socialContainer.appendChild(a);
     });
 
-    // Render Category Buttons & Gallery Filtering
     const categoryBar = document.getElementById("categoryBar");
     const galleryContainer = document.getElementById("galleryContainer");
 
@@ -660,6 +876,8 @@
             <span class="art-tag">${item.category}</span>
           </div>
         `;
+        attachRipple(card);
+        attach3DTilt(card);
         card.onclick = () => {
           document.getElementById("modalImg").src = item.image;
           document.getElementById("imgModal").classList.add("open");
@@ -677,11 +895,11 @@
       btn.className = "cat-btn";
       btn.dataset.cat = cat;
       btn.innerHTML = `${cat} <span class="cat-count">${count}</span>`;
+      attachRipple(btn);
       btn.onclick = () => renderGalleryByCategory(cat);
       categoryBar.appendChild(btn);
     });
 
-    // Render Pricing Cards
     const pricingGrid = document.getElementById("pricingGrid");
     PORTFOLIO_DATA.packages.forEach(pkg => {
       const card = document.createElement("div");
@@ -704,10 +922,10 @@
           </a>
         </div>
       `;
+      card.querySelectorAll(".btn").forEach(attachRipple);
       pricingGrid.appendChild(card);
     });
 
-    // Render Terms
     const tosList = document.getElementById("tosList");
     PORTFOLIO_DATA.terms.forEach(rule => {
       const li = document.createElement("li");
