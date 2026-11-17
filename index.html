@@ -709,7 +709,7 @@
     </div>
 
     <footer>
-      <p id="footerText">© 2026 Tres Hoshiro • Payment via GCash </p>
+      <p id="footerText">© 2026 Tres Hoshiro • Payment via GCash</p>
     </footer>
   </div>
 
@@ -725,14 +725,14 @@
       isOpen: true,
       artistName: "Tres Hoshiro",
       artistBio: "Custom Playlist Covers, Music Artwork & Aesthetic Concept Edits ✨",
-      footerText: "© 2026 Tres Hoshiro • Payment via GCash / Maya",
+      footerText: "© 2026 Tres Hoshiro • Payment via GCash",
 
       facebookUrl: "https://www.facebook.com/profile.php?id=100007757027751",
       instagramUrl: "https://www.instagram.com/duh.its_langit?mdxt=anJsb2xrYzRsejNy",
 
       socials: [
         { label: "Message via Facebook", url: "https://www.facebook.com/profile.php?id=100007757027751", primary: true },
-        { label: "Message via Instagram", url: "https://www.instagram.com/duh.its_langit?mdxt=anJsb2xrYzRsejNy", primary: false },
+        { label: "Message via Instagram", url: "https://www.instagram.com/stfzi?cplk=MWY4YWpycXc4NWhyaA==", primary: false },
         { label: "View Pricelist", url: "#rates", primary: false }
       ],
 
@@ -755,14 +755,14 @@
         // --- POSTER ---
         { title: "Poster #1", category: "Poster", image: "poster (1).jpg" },
         { title: "Poster #2", category: "Poster", image: "poster (2).jpg" },
-        { title: "Poster #3", category: "Poster", image: "poster (3).jpg" },
-        { title: "Black Magic", category: "Poster", image: "picture 1.jpg" },
+        { title: "Poster #3", category: "Poster", image: "poster 3.jpg" },
+        { title: "Poster #4", category: "Poster", image: "picture 1.jpg" },
 
         // --- SDP ---
         { title: "SDP Edit #1", category: "SDP", image: "sdp.jpg" }
       ],
 
-      // Bagong Pricelist Structure
+      // Updated Pricelist Structure
       pricelist: [
         {
           title: "UDP",
@@ -774,34 +774,34 @@
           ]
         },
         {
-          title: "੭﹕SONG COVER TEMPLATE",
-          note: "Depends on the style & member count",
+          title: "SONG COVER TEMPLATE",
+          note: "Depends on the style",
           featured: true,
           badge: "Most Requested",
           items: [
             { label: "Solo Template", price: "₱5–10" },
             { label: "Duo Template", price: "₱10–15" },
             { label: "3–4 Collaborators", price: "₱15–20" },
-            { label: "5–6 Collaborators", price: "₱20–25" },
-            { label: "6–10 Collaborators", price: "₱30–40" },
-            { label: "10+ Collaborators", price: "₱40–60" }
+            { label: "5–7 Collaborators", price: "₱20–25" },
+            { label: "7–10 Collaborators", price: "₱30–40" },
+            { label: "10+ Collaborators", price: "₱40–50" }
           ]
         },
         {
-          title: "੭﹕POSTERS & SDP",
+          title: "POSTERS",
           note: "Event, Group Posters & SDP",
           featured: false,
           items: [
             { label: "Birthday Poster", price: "₱10" },
             { label: "Girl / Boy Group Poster", price: "₱15" },
-            { label: "SDP", sub: "Depende sa dami", price: "₱20–40" }
+            { label: "SDP", sub: "Depende sa dami", price: "₱15–30" }
           ]
         }
       ],
 
       terms: [
-        "Payment via GCash / Maya before or upon confirmation of your commission slot.",
-        "Please prepare high-quality photos/renders and your preferred concept, color palette, and exact text.",
+        "Payment via GCash only before or upon confirmation of your commission slot.",
+        "Please prepare photos/renders and your preferred concept, color palette, and exact text.",
         "Final price within the range depends on complexity, effects, and style requested.",
         "Personal and playlist/streaming use only. Please credit Tres Hoshiro when posting."
       ]
@@ -919,7 +919,6 @@
       categoryBar.appendChild(btn);
     });
 
-    // Render Pricelist Cards
     const pricingGrid = document.getElementById("pricingGrid");
     PORTFOLIO_DATA.pricelist.forEach(group => {
       const card = document.createElement("div");
