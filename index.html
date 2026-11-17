@@ -376,24 +376,83 @@
       color: inherit;
     }
 
-    /* Prompt Placeholder Before Category Selection */
+    /* Luxury Animated Showcase Placeholder */
     .select-prompt {
+      position: relative;
+      overflow: hidden;
       text-align: center;
-      padding: 3.2rem 1.5rem;
-      background: var(--card-bg);
-      border: 1px dashed var(--card-border);
-      border-radius: 24px;
-      color: var(--text-muted);
-      backdrop-filter: blur(10px);
-      animation: fadeUp 0.5s ease both;
+      padding: 3.4rem 1.75rem;
+      border-radius: 26px;
+      background: linear-gradient(145deg, rgba(255, 126, 182, 0.08), rgba(192, 132, 252, 0.06), rgba(18, 9, 22, 0.85));
+      border: 1.5px solid rgba(255, 126, 182, 0.45);
+      box-shadow: 0 12px 40px rgba(255, 111, 177, 0.14), inset 0 0 28px rgba(255, 126, 182, 0.07);
+      backdrop-filter: blur(14px);
+      animation: fadeUp 0.6s ease both, borderBreath 3.5s ease-in-out infinite alternate;
     }
 
-    .select-prompt span {
-      display: block;
-      font-size: 1.2rem;
+    .select-prompt::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(110deg, transparent 25%, rgba(255, 194, 223, 0.14) 50%, transparent 75%);
+      transform: translateX(-100%);
+      animation: promptSweep 4.5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes borderBreath {
+      0% {
+        border-color: rgba(255, 126, 182, 0.35);
+        box-shadow: 0 10px 30px rgba(255, 111, 177, 0.1), inset 0 0 20px rgba(255, 126, 182, 0.05);
+      }
+      100% {
+        border-color: rgba(216, 180, 254, 0.75);
+        box-shadow: 0 16px 45px rgba(192, 132, 252, 0.24), inset 0 0 32px rgba(255, 126, 182, 0.12);
+      }
+    }
+
+    @keyframes promptSweep {
+      0%, 40% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(6deg); }
+    }
+
+    .prompt-icon {
+      width: 52px;
+      height: 52px;
+      margin: 0 auto 0.95rem;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255, 111, 177, 0.25), rgba(192, 132, 252, 0.25));
+      border: 1px solid rgba(255, 182, 217, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.45rem;
       color: var(--pink-soft);
-      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(255, 111, 177, 0.25);
+      animation: floatIcon 3s ease-in-out infinite;
+    }
+
+    .select-prompt .prompt-title {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ffffff 20%, #ffc2df 70%, #d8b4fe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       margin-bottom: 0.35rem;
+    }
+
+    .select-prompt p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 420px;
+      margin: 0 auto;
     }
 
     /* Gallery Grid + 3D Tilt & Shimmer Sweep */
@@ -694,8 +753,9 @@
     <div class="category-bar" id="categoryBar"></div>
     <div id="galleryContainer">
       <div class="select-prompt">
-        <span>✨ Choose a Category Above</span>
-        Tap UDP, Template, Poster, or SDP to view sample works.
+        <div class="prompt-icon">✦</div>
+        <span class="prompt-title">Explore the Portfolio</span>
+        <p>Select a category pill above (<strong>UDP</strong>, <strong>Template</strong>, <strong>Poster</strong>, or <strong>SDP</strong>) to reveal sample works.</p>
       </div>
     </div>
 
@@ -762,7 +822,6 @@
         { title: "SDP Edit #1", category: "SDP", image: "sdp.jpg" }
       ],
 
-      // Updated Pricelist Structure
       pricelist: [
         {
           title: "UDP",
@@ -801,7 +860,7 @@
 
       terms: [
         "Payment via GCash only before or upon confirmation of your commission slot.",
-        "Please prepare photos/renders and your preferred concept, color palette, and exact text.",
+        "Please prepare high-quality photos/renders and your preferred concept, color palette, and exact text.",
         "Final price within the range depends on complexity, effects, and style requested.",
         "Personal and playlist/streaming use only. Please credit Tres Hoshiro when posting."
       ]
