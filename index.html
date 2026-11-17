@@ -142,7 +142,7 @@
     }
 
     /* =========================================
-       AMBIENT GLOW & SPARKLE PARTICLES
+       AMBIENT GLOW & MOTION EFFECTS
        ========================================= */
     .bg-glow {
       position: fixed;
@@ -168,7 +168,6 @@
       to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
-    /* Click Ripple Wave */
     .ripple-wave {
       position: absolute;
       border-radius: 50%;
@@ -259,7 +258,6 @@
       flex-wrap: wrap;
     }
 
-    /* Interactive Buttons with Tactile Bounce */
     .btn {
       position: relative;
       overflow: hidden;
@@ -482,18 +480,18 @@
       letter-spacing: 0.4px;
     }
 
-    /* Pricing Cards */
+    /* Pricelist Cards */
     .pricing-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 1.35rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.4rem;
     }
 
     .price-card {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
       border-radius: 24px;
-      padding: 1.75rem;
+      padding: 1.8rem;
       backdrop-filter: blur(12px);
       display: flex;
       flex-direction: column;
@@ -505,13 +503,13 @@
     .price-card:hover {
       transform: translateY(-6px);
       border-color: var(--pink-primary);
-      box-shadow: 0 14px 32px rgba(255, 111, 177, 0.18);
+      box-shadow: 0 14px 32px rgba(255, 111, 177, 0.2);
     }
 
     .price-card.featured {
       border: 1.5px solid var(--pink-primary);
       background: linear-gradient(180deg, rgba(255, 126, 182, 0.12), rgba(255, 255, 255, 0.03));
-      box-shadow: 0 12px 32px rgba(255, 111, 177, 0.14);
+      box-shadow: 0 12px 32px rgba(255, 111, 177, 0.15);
     }
 
     .badge-popular {
@@ -528,37 +526,62 @@
       letter-spacing: 0.5px;
     }
 
+    .tier-header {
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 1px solid rgba(255, 182, 217, 0.14);
+    }
+
     .tier-name {
       font-size: 1.22rem;
-      font-weight: 600;
-      color: var(--pink-soft);
-    }
-
-    .tier-price {
-      font-size: 2.1rem;
       font-weight: 700;
-      margin: 0.4rem 0 0.9rem;
-      color: #fff;
+      color: var(--pink-soft);
+      letter-spacing: 0.3px;
     }
 
-    .tier-features {
-      list-style: none;
-      margin-bottom: 1.5rem;
+    .tier-note {
+      font-size: 0.82rem;
       color: var(--text-muted);
-      font-size: 0.92rem;
+      margin-top: 2px;
     }
 
-    .tier-features li {
-      margin-bottom: 0.5rem;
-      padding-left: 1.25rem;
-      position: relative;
+    /* Rate Rows Inside Each Pricelist Card */
+    .rate-list {
+      list-style: none;
+      margin-bottom: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
     }
 
-    .tier-features li::before {
-      content: "✦";
-      position: absolute;
-      left: 0;
+    .rate-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 182, 217, 0.1);
+      padding: 0.6rem 0.9rem;
+      border-radius: 12px;
+      font-size: 0.91rem;
+    }
+
+    .rate-label {
+      color: var(--text-main);
+      font-weight: 400;
+    }
+
+    .rate-label small {
+      display: block;
+      color: var(--text-muted);
+      font-size: 0.76rem;
+    }
+
+    .rate-price {
+      font-weight: 700;
       color: var(--pink-primary);
+      white-space: nowrap;
+      font-size: 0.96rem;
     }
 
     .book-actions {
@@ -593,7 +616,7 @@
       margin-bottom: 0.45rem;
     }
 
-    /* Lightbox Modal with Spring Zoom */
+    /* Lightbox Modal */
     .modal {
       display: none;
       position: fixed;
@@ -676,8 +699,8 @@
       </div>
     </div>
 
-    <h2 class="section-title" id="rates">Commission Rates</h2>
-    <p class="section-desc">All packages include high-resolution PNG/JPG export</p>
+    <h2 class="section-title" id="rates">Commission Pricelist</h2>
+    <p class="section-desc">Affordable rates • Final price depends on style & complexity</p>
     <div class="pricing-grid" id="pricingGrid"></div>
 
     <div class="info-box">
@@ -686,7 +709,7 @@
     </div>
 
     <footer>
-      <p id="footerText">© 2026 Tres Hoshiro • Payment via GCash / Maya</p>
+      <p id="footerText">© 2026 Tres Hoshiro • Payment via GCash </p>
     </footer>
   </div>
 
@@ -709,8 +732,8 @@
 
       socials: [
         { label: "Message via Facebook", url: "https://www.facebook.com/profile.php?id=100007757027751", primary: true },
-        { label: "Message via Instagram", url: "https://www.instagram.com/stfzi?cplk=MWY4YWpycXc4NWhyaA==", primary: false },
-        { label: "View Rates", url: "#rates", primary: false }
+        { label: "Message via Instagram", url: "https://www.instagram.com/duh.its_langit?mdxt=anJsb2xrYzRsejNy", primary: false },
+        { label: "View Pricelist", url: "#rates", primary: false }
       ],
 
       categories: ["UDP", "Template", "Poster", "SDP"],
@@ -739,47 +762,47 @@
         { title: "SDP Edit #1", category: "SDP", image: "sdp.jpg" }
       ],
 
-      packages: [
+      // Bagong Pricelist Structure
+      pricelist: [
         {
-          name: "Basic Cover Edit",
-          price: "₱150",
+          title: "UDP",
+          note: "Custom UDP Edits",
           featured: false,
-          features: [
-            "1–2 Subjects / Members",
-            "Custom Typography & Color Grading",
-            "1 Free Minor Revision",
-            "2–3 Days Turnaround"
+          items: [
+            { label: "First Photo", sub: "Base rate for 1st photo", price: "₱10" },
+            { label: "Succeeding Photos", sub: "Depends on the style", price: "₱4–6 each" }
           ]
         },
         {
-          name: "Full Concept / Group Cover",
-          price: "₱300",
+          title: "੭﹕SONG COVER TEMPLATE",
+          note: "Depends on the style & member count",
           featured: true,
-          badge: "Most Popular",
-          features: [
-            "Up to 7 Subjects / Full Group",
-            "Complex Lighting, Glow & Custom FX",
-            "2 Free Revisions",
-            "3–5 Days Turnaround"
+          badge: "Most Requested",
+          items: [
+            { label: "Solo Template", price: "₱5–10" },
+            { label: "Duo Template", price: "₱10–15" },
+            { label: "3–4 Collaborators", price: "₱15–20" },
+            { label: "5–6 Collaborators", price: "₱20–25" },
+            { label: "6–10 Collaborators", price: "₱30–40" },
+            { label: "10+ Collaborators", price: "₱40–60" }
           ]
         },
         {
-          name: "Banner + Cover Bundle",
-          price: "₱420",
+          title: "੭﹕POSTERS & SDP",
+          note: "Event, Group Posters & SDP",
           featured: false,
-          features: [
-            "1 Full Concept Cover + Matching Header",
-            "Priority Queue",
-            "3 Free Revisions",
-            "3–4 Days Turnaround"
+          items: [
+            { label: "Birthday Poster", price: "₱10" },
+            { label: "Girl / Boy Group Poster", price: "₱15" },
+            { label: "SDP", sub: "Depende sa dami", price: "₱20–40" }
           ]
         }
       ],
 
       terms: [
-        "50% downpayment via GCash before starting; remaining 50% upon final preview before sending the unwatermarked file.",
+        "Payment via GCash / Maya before or upon confirmation of your commission slot.",
         "Please prepare high-quality photos/renders and your preferred concept, color palette, and exact text.",
-        "Rush orders (within 24 hours) have an additional +₱100 rush fee.",
+        "Final price within the range depends on complexity, effects, and style requested.",
         "Personal and playlist/streaming use only. Please credit Tres Hoshiro when posting."
       ]
     };
@@ -794,12 +817,10 @@
       }
     }
 
-    // Auto-dismiss welcome screen after 2.5 seconds
     window.addEventListener("load", () => {
       setTimeout(closeWelcome, 2500);
     });
 
-    // Click Ripple Motion Effect on Buttons & Cards
     function attachRipple(el) {
       el.addEventListener("click", function (e) {
         const rect = this.getBoundingClientRect();
@@ -814,7 +835,6 @@
       });
     }
 
-    // 3D Tilt Motion on Gallery Cards
     function attach3DTilt(card) {
       card.addEventListener("mousemove", (e) => {
         const rect = card.getBoundingClientRect();
@@ -827,7 +847,6 @@
       });
     }
 
-    // Populate Page Data
     document.getElementById("artistName").textContent = PORTFOLIO_DATA.artistName;
     document.getElementById("artistBio").textContent = PORTFOLIO_DATA.artistBio;
     document.getElementById("footerText").textContent = PORTFOLIO_DATA.footerText;
@@ -900,25 +919,36 @@
       categoryBar.appendChild(btn);
     });
 
+    // Render Pricelist Cards
     const pricingGrid = document.getElementById("pricingGrid");
-    PORTFOLIO_DATA.packages.forEach(pkg => {
+    PORTFOLIO_DATA.pricelist.forEach(group => {
       const card = document.createElement("div");
-      card.className = `price-card ${pkg.featured ? "featured" : ""}`;
+      card.className = `price-card ${group.featured ? "featured" : ""}`;
       card.innerHTML = `
-        ${pkg.badge ? `<span class="badge-popular">${pkg.badge}</span>` : ""}
+        ${group.badge ? `<span class="badge-popular">${group.badge}</span>` : ""}
         <div>
-          <div class="tier-name">${pkg.name}</div>
-          <div class="tier-price">${pkg.price}</div>
-          <ul class="tier-features">
-            ${pkg.features.map(f => `<li>${f}</li>`).join("")}
+          <div class="tier-header">
+            <div class="tier-name">${group.title}</div>
+            ${group.note ? `<div class="tier-note">${group.note}</div>` : ""}
+          </div>
+          <ul class="rate-list">
+            ${group.items.map(item => `
+              <li class="rate-item">
+                <span class="rate-label">
+                  ${item.label}
+                  ${item.sub ? `<small>${item.sub}</small>` : ""}
+                </span>
+                <span class="rate-price">${item.price}</span>
+              </li>
+            `).join("")}
           </ul>
         </div>
         <div class="book-actions">
-          <a href="${PORTFOLIO_DATA.facebookUrl}" target="_blank" rel="noopener noreferrer" class="btn ${pkg.featured ? "btn-primary" : "btn-secondary"}" style="text-align:center;">
-            Book via Facebook / Messenger
+          <a href="${PORTFOLIO_DATA.facebookUrl}" target="_blank" rel="noopener noreferrer" class="btn ${group.featured ? "btn-primary" : "btn-secondary"}" style="text-align:center;">
+            Order via Facebook / Messenger
           </a>
           <a href="${PORTFOLIO_DATA.instagramUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="text-align:center; font-size:0.85rem; padding:9px 18px;">
-            Book via Instagram
+            Order via Instagram
           </a>
         </div>
       `;
