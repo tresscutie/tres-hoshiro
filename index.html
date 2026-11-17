@@ -371,46 +371,34 @@
   </div>
 
   <script>
-    // =========================================================================
-    // MADALING I-EDIT DITO: Palitan lang ang text, image filenames, at presyo!
-    // =========================================================================
     const PORTFOLIO_DATA = {
-      isOpen: true, // Gawing false kung closed na ang commissions
+      isOpen: true,
       artistName: "Tress Edits Studio",
       artistBio: "Custom Playlist Covers, Music Artwork & Aesthetic Concept Edits ✨",
       footerText: "© 2026 Tress Edits Studio • Payment via GCash / Maya",
 
-      // Mga Direct Links mo para sa Book at Message buttons
       facebookUrl: "https://www.facebook.com/share/1A264dNA2d/",
       instagramUrl: "https://www.instagram.com/duh.its_langit?mdxt=anJsb2xrYzRsejNy",
 
-      // Mga button sa taas
       socials: [
         { label: "Message via Facebook", url: "https://www.facebook.com/share/1A264dNA2d/", primary: true },
         { label: "Message via Instagram", url: "https://www.instagram.com/duh.its_langit?mdxt=anJsb2xrYzRsejNy", primary: false },
         { label: "View Rates", url: "#rates", primary: false }
       ],
 
-      // Mga Sample Edits mo (ilagay ang image files sa parehong folder ng index.html)
       gallery: [
         {
           title: "The Invasion: Ep. 28",
           category: "Playlist Cover",
-          image: "cover1.jpg"
+          image: "69caf8e7-f79b-462f-9c10-e3fe501e636a.jpg"
         },
         {
-          title: "Velvet Midnight Concept",
-          category: "Album Cover",
-          image: "cover2.jpg"
-        },
-        {
-          title: "Dreamscape Single Art",
+          title: "Sample Cover Edit #2",
           category: "Music Cover",
-          image: "cover3.jpg"
+          image: "d70ad808-15d4-4357-804f-6bf9de710eb6.jpg"
         }
       ],
 
-      // Mga Presyo / Packages
       packages: [
         {
           name: "Basic Cover Edit",
@@ -448,7 +436,6 @@
         }
       ],
 
-      // Rules & Payment Info
       terms: [
         "50% downpayment via GCash before starting; remaining 50% upon final preview before sending the unwatermarked file.",
         "Please prepare high-quality photos/renders and your preferred concept, color palette, and exact text.",
@@ -457,9 +444,6 @@
       ]
     };
 
-    // =========================================================================
-    // AUTO-RENDER ENGINE (Huwag nang galawin)
-    // =========================================================================
     document.getElementById("artistName").textContent = PORTFOLIO_DATA.artistName;
     document.getElementById("artistBio").textContent = PORTFOLIO_DATA.artistBio;
     document.getElementById("footerText").textContent = PORTFOLIO_DATA.footerText;
